@@ -90,8 +90,6 @@ class CurrentConditionsDisplay(Observer):
               "F degrees and", self.humidity, "[%] humidity",
               "and pressure", self.pressure)
 
-# TODO: implement StatisticsDisplay class and ForecastDisplay class.
-
 class StatisticsDisplay(Observer):
 
     def __init__(self, weatherData):
@@ -163,9 +161,8 @@ class ForecastDisplay(Observer):
         self.forecast_humidity = 0
         self.forecast_pressure = 0
 
-        self.weatherData = weatherData  # save the ref in an attribute.
-        weatherData.registerObserver(self)  # register the observer
-        # so it gets data updates.
+        self.weatherData = weatherData 
+        weatherData.registerObserver(self) 
 
     def update(self, temperature, humidity, pressure):
         self.forecast_temperature = temperature + 0.11 * humidity + 0.2 * pressure
@@ -185,19 +182,6 @@ class WeatherStation:
         current_display = CurrentConditionsDisplay(weather_data)
         statistics_display = StatisticsDisplay(weather_data)
         forecast_display = ForecastDisplay(weather_data)
-
-        # TODO: Create two objects from StatisticsDisplay class and
-        # ForecastDisplay class. Also register them to the concerete instance
-        # of the Subject class so the they get the measurements' updates.
-
-        # The StatisticsDisplay class should keep track of the min/average/max
-        # measurements and display them.
-
-        # The ForecastDisplay class shows the weather forcast based on the current
-        # temperature, humidity and pressure. Use the following formuals :
-        # forcast_temp = temperature + 0.11 * humidity + 0.2 * pressure
-        # forcast_humadity = humidity - 0.9 * humidity
-        # forcast_pressure = pressure + 0.1 * temperature - 0.21 * pressure
 
         weather_data.setMeasurements(80, 65, 30.4)
         weather_data.setMeasurements(82, 70, 29.2)
